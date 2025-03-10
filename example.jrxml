@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports 
+    http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+    name="json_report" pageWidth="595" pageHeight="842" columnWidth="540" 
+    leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
+    uuid="4fd2c6d1-9d1d-4bb4-9f6e-9b6d5f210b2e">
+
+    <!-- Define Parameters (used for passing dynamic data) -->
+    <parameter name="name" class="java.lang.String"/>
+    <parameter name="age" class="java.lang.Integer"/>
+    <parameter name="city" class="java.lang.String"/>
+
+    <title>
+        <band height="50">
+            <textElement textAlignment="Center">
+                <font size="18" isBold="true"/>
+            </textElement>
+            <textField>
+                <reportElement x="0" y="0" width="540" height="40"/>
+                <textElement textAlignment="Center">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Personal Info Report"]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <detail>
+        <band height="200">
+            <textField>
+                <reportElement x="0" y="0" width="540" height="30"/>
+                <textElement textAlignment="Left"/>
+                <textFieldExpression><![CDATA["Name: " + $P{name}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="40" width="540" height="30"/>
+                <textElement textAlignment="Left"/>
+                <textFieldExpression><![CDATA["Age: " + $P{age}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="80" width="540" height="30"/>
+                <textElement textAlignment="Left"/>
+                <textFieldExpression><![CDATA["City: " + $P{city}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
