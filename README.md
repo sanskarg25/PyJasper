@@ -8,17 +8,24 @@ It allows generating reports (PDF, DOCX, XLSX) from `.jrxml` templates using Pyt
 
 ---
 
-## ✨ Features
+## Features
 - Connects to JasperReports Java backend via Py4J
 - Supports multiple output formats: **PDF**, **DOCX**, **XLSX**
 - Converts Python data structures into Java-compatible formats automatically
 - Simple API for report generation
 
 
-## 🛠 Installation Locally
+## Installation Locally
 
 First, clone the repository:
 
 ```bash
 git clone https://github.com/yourusername/py4jasper.git
 cd py4jasper
+
+
+## Usage
+from py4jasper.main import generate_report
+
+## License
+This project is licensed under the MIT License.
