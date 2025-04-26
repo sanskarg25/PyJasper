@@ -2,6 +2,6 @@
 Jasper Report Python Package
 """
 
-from core import main
+from py4jasper import main
 
 __all__ = ["main"]

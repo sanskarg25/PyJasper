@@ -2,8 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="py4jasper",
-    version="1.0.0",
+    version="1.0.3",
     description="Python package for generating reports using Jasper",
+    long_description=open('README.md').read(),  # ? Reads the content of your README file
+    long_description_content_type="text/markdown",
     author="Sanskar Gandhi",
     author_email="sanskar.gandho@outlook.com",
     packages=find_packages(),

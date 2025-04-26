@@ -1,3 +1,16 @@
+Metadata-Version: 2.1
+Name: py4jasper
+Version: 1.0.3
+Summary: Python package for generating reports using Jasper
+Author: Sanskar Gandhi
+Author-email: sanskar.gandho@outlook.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: py4j
+
 # py4jasper
 
 [![Build Status](https://img.shields.io/travis/sanskarg25/py4jasper)](https://github.com/sanskarg25/py4jasper)
@@ -8,14 +21,14 @@ It allows generating reports (PDF, DOCX, XLSX) from `.jrxml` templates using Pyt
 
 ---
 
-## ✨ Features
+## âœ¨ Features
 - Connects to JasperReports Java backend via Py4J
 - Supports multiple output formats: **PDF**, **DOCX**, **XLSX**
 - Converts Python data structures into Java-compatible formats automatically
 - Simple API for report generation
 
 
-## 🛠 Installation Locally
+## ðŸ›  Installation Locally
 
 First, clone the repository:
 
