@@ -1,51 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports 
-    http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
-    name="json_report" pageWidth="595" pageHeight="842" columnWidth="540" 
-    leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" 
-    uuid="4fd2c6d1-9d1d-4bb4-9f6e-9b6d5f210b2e">
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports 
+                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="exampleReport" language="groovy" pageWidth="595" pageHeight="842" 
+              columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 
-    <!-- Define Parameters (used for passing dynamic data) -->
-    <parameter name="name" class="java.lang.String"/>
-    <parameter name="age" class="java.lang.Integer"/>
-    <parameter name="city" class="java.lang.String"/>
+    <!-- Fields definition -->
+    <field name="name" class="java.lang.String"/>
+    <field name="age" class="java.lang.Integer"/>
+    <field name="city" class="java.lang.String"/>
 
+    <!-- Title of the Report -->
     <title>
         <band height="50">
-            <textElement textAlignment="Center">
-                <font size="18" isBold="true"/>
-            </textElement>
-            <textField>
-                <reportElement x="0" y="0" width="540" height="40"/>
-                <textElement textAlignment="Center">
-                    <font size="16" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA["Personal Info Report"]]></textFieldExpression>
-            </textField>
+            <staticText>
+                <reportElement x="0" y="0" width="595" height="30"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[User Information Report]]></text>
+            </staticText>
         </band>
     </title>
 
+    <!-- Column Headers (Table headers) -->
+    <columnHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="0" y="0" width="180" height="30"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="0" width="180" height="30"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Age]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="360" y="0" width="180" height="30"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[City]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <!-- Detail Section (Rows of data) -->
     <detail>
-        <band height="200">
+        <band height="30">
             <textField>
-                <reportElement x="0" y="0" width="540" height="30"/>
-                <textElement textAlignment="Left"/>
-                <textFieldExpression><![CDATA["Name: " + $P{name}]]></textFieldExpression>
+                <reportElement x="0" y="0" width="180" height="30"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
             </textField>
-
             <textField>
-                <reportElement x="0" y="40" width="540" height="30"/>
-                <textElement textAlignment="Left"/>
-                <textFieldExpression><![CDATA["Age: " + $P{age}]]></textFieldExpression>
+                <reportElement x="180" y="0" width="180" height="30"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
             </textField>
-
             <textField>
-                <reportElement x="0" y="80" width="540" height="30"/>
-                <textElement textAlignment="Left"/>
-                <textFieldExpression><![CDATA["City: " + $P{city}]]></textFieldExpression>
+                <reportElement x="360" y="0" width="180" height="30"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
+
+    <!-- Summary (End of Report) -->
+    <summary>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="0" width="595" height="30"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[End of Report]]></text>
+            </staticText>
+        </band>
+    </summary>
+
 </jasperReport>

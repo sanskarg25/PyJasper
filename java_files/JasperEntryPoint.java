@@ -1,18 +1,15 @@
-package jasper4py;
+package java_files;
 
 import py4j.GatewayServer;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.util.HashMap;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.ooxml.*;
 import net.sf.jasperreports.export.*;
-
-// ? Commands - 
-// ? 1. javac -cp "jar/*" java_files/JasperEntryPoint.java
-// ? 2. java -cp "jar/*;." java_files.JasperEntryPoint [For windows]
-// ? 2. java -cp "jar/*:." java_files.JasperEntryPoint [For linux/ubuntu]
+import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 
 public class JasperEntryPoint {
     public static void main(String[] args) {
@@ -22,37 +19,21 @@ public class JasperEntryPoint {
     }
 
     public void generate_report(String jrxmlPath, String outputPath,
-            Map<String, Object> dynamicParams, String exportFormat) throws Exception {
-        // Add this before the connection
-
-        // Load the JDBC driver
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-        // Retrieve database connection parameters from dynamicParams
-        String dbHost = (String) dynamicParams.get("dbHost");
-        String dbName = (String) dynamicParams.get("dbName");
-        String dbUser = (String) dynamicParams.get("dbUser");
-        String dbPassword = (String) dynamicParams.get("dbPassword");
-
-        // Database connection
-        String connectionUrl = "jdbc:sqlserver://" + dbHost + ";"
-                + "database=" + dbName + ";"
-                + "user=" + dbUser + ";"
-                + "password=" + dbPassword + ";"
-                + "encrypt=false;";
-
-        Connection conn = DriverManager.getConnection(connectionUrl);
-
+    List<Map<String, Object>> dynamicParams, String exportFormat) throws Exception {
+        
         // Set up parameters
         Map<String, Object> parameters = new HashMap<String, Object>();
-
-        for (Map.Entry<String, Object> entry : dynamicParams.entrySet()) {
-            parameters.put(entry.getKey(), entry.getValue());
+        
+        List<Map<String, ?>> safeList = new ArrayList<>();
+        for (Map<String, Object> record : dynamicParams) {
+            safeList.add(record);
         }
+        JRDataSource dataSource = new JRMapCollectionDataSource(safeList);
 
-        // Compile and fill report
+
+        // 3. Compile and fill the report
         JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlPath);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
         if ("PDF".equalsIgnoreCase(exportFormat)) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
@@ -63,8 +44,6 @@ public class JasperEntryPoint {
         } else {
             throw new IllegalArgumentException("Unsupported export format: " + exportFormat);
         }
-
-        conn.close();
     }
 
     private void exportToExcel(JasperPrint jasperPrint, String outputPath) throws JRException {
@@ -72,7 +51,6 @@ public class JasperEntryPoint {
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputPath));
 
-        // Optionally set some export configurations (like removing page numbers)
         SimpleXlsxReportConfiguration reportConfig = new SimpleXlsxReportConfiguration();
         reportConfig.setRemoveEmptySpaceBetweenRows(true);
         reportConfig.setWhitePageBackground(false);
